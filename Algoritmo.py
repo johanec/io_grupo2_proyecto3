@@ -85,5 +85,17 @@ class Algoritmo:
         parents = self.select_parents(fitness_scores, numPadres)
         return parents
     
+    def metodoOne_point(self, padres,rangoCruce):
+        print("One_point")
+        return []
+    def metodoTwo_point(self, padres,rangoCruce):
+        print("Two_point")
+        return[]
+    def metodoUniform(self, padres,rangoCruce):
+        print("uniforme")
+        return[]
+
+    def mutacion(self, poblacion, rangoMutacion):
+        return []    
     
   

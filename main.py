@@ -44,7 +44,18 @@ def calcularFitness(poblacion, utils):
     for cromosoma in poblacion:
         resultado.append([cromosoma, utils.calculate_fitness(cromosoma)]) 
     return  resultado 
-        
+
+def metodoCruces(padres, config, algoritmo):
+    metodo = config["ag"]["crossover_method"]
+    rangoCruce = config["ag"]["crossover_rate"]             # 90
+    if metodo == "one-point" :
+        padres = algoritmo.metodoOne_point(padres,rangoCruce)  
+    elif metodo == "two-point": 
+        padres = algoritmo.metodoTwo_point(padres,rangoCruce)
+    elif metodo == "uniform":
+        padres = algoritmo.metodoUniform(padres,rangoCruce)
+    else:
+        raise Exception ("El método no se encuentra")
 
 def main():
     config = leerArchivo("config.toml")
@@ -55,7 +66,8 @@ def main():
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
     poblacionFitness = calcularFitness(poblacion, utils )
     algoritmo = Algoritmo()
-    print(metodoSeleccion(poblacionFitness,config, algoritmo))
-    
+    padres = metodoSeleccion(poblacionFitness,config, algoritmo)
+    algoritmo = metodoCruces(padres, config, algoritmo)
+    print(padres)
    
 main()
