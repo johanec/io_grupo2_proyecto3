@@ -1,7 +1,7 @@
 import string
 import tomllib
 from utils import *
-from Algoritmo import *
+from algoritmo import *
 import math
 from typing import List, Tuple, Iterator
 import random
