@@ -86,11 +86,82 @@ class Algoritmo:
         return parents
     
     def metodoOne_point(self, padres,rangoCruce):
-        print("One_point")
-        return []
+        hijos = []
+        viejos = []
+        while len(padres) >= 2:
+            padre1 = padres.pop(0)
+            padre2 = padres.pop(0)
+            hijo1 = []
+            hijo2 = []
+            punto = random.randint(0, len(padre1)-1)
+            hijo1.extend(padre1[0:punto])
+            hijo1.extend(padre2[punto:])
+            hijo2.extend(padre2[punto:])
+            hijo2.extend(padre1[0:punto])
+            viejos.append(padre1)
+            viejos.append(padre2)
+            hijos.append(hijo1)
+            hijos.append(hijo2)
+        
+        if len(padres) == 1:
+            padre1 = viejos.pop(random.randint(0, len(viejos)-1))
+            padre2 = padres.pop(0)
+            hijo1 = []
+            hijo2 = []
+            punto = random.randint(0, len(padre1)-1)
+            hijo1.extend(padre1[0:punto])
+            hijo1.extend(padre2[punto:])
+            hijo2.extend(padre2[punto:])
+            hijo2.extend(padre1[0:punto])
+            viejos.append(padre1)
+            viejos.append(padre2)
+            hijos.append(hijo1)
+            hijos.append(hijo2)
+        return hijos
+
     def metodoTwo_point(self, padres,rangoCruce):
-        print("Two_point")
-        return[]
+        hijos = []
+        viejos = []
+        while len(padres) >= 2:
+            padre1 = padres.pop(0)
+            padre2 = padres.pop(0)
+            hijo1 = []
+            hijo2 = []
+            punto1 = random.randint(0, len(padre1)/2-1)
+            punto2 = random.randint(punto1, len(padre1)-1)
+            #hijo1
+            hijo1.extend(padre1[0:punto1])
+            hijo1.extend(padre2[punto1:punto2])
+            hijo1.extend(padre1[punto2:])
+            #hijo2
+            hijo2.extend(padre2[0:punto1])
+            hijo2.extend(padre1[punto1:punto2])
+            hijo2.extend(padre2[punto2:])
+            viejos.append(padre1)
+            viejos.append(padre2)
+            hijos.append(hijo1)
+            hijos.append(hijo2)
+        if len(padres) == 1:
+            padre1 = viejos.pop(random.randint(0, len(viejos)-1))
+            padre2 = padres.pop(0)
+            hijo1 = []
+            hijo2 = []
+            punto1 = random.randint(0, len(padre1)/2-1)
+            punto2 = random.randint(punto1, len(padre1)-1)
+            #hijo1
+            hijo1.extend(padre1[0:punto1])
+            hijo1.extend(padre2[punto1:punto2])
+            hijo1.extend(padre1[punto2:])
+            #hijo2
+            hijo2.extend(padre2[0:punto1])
+            hijo2.extend(padre1[punto1:punto2])
+            hijo2.extend(padre2[punto2:])
+            viejos.append(padre1)
+            viejos.append(padre2)
+            hijos.append(hijo1)
+            hijos.append(hijo2)
+
+        return hijos
     def metodoUniform(self, padres,rangoCruce):
         print("uniforme")
         return[]
