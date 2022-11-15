@@ -58,6 +58,7 @@ def metodoCruces(padres, config, algoritmo):
         raise Exception ("El método no se encuentra")
     return nuevaPoblacion
 
+
 def main():
     config = leerArchivo("config.toml")
     utils = Utils(config)
@@ -65,12 +66,14 @@ def main():
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
     rangoMutacion = config["ag"]["mutation_rate"]               # 0.5            
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
-    poblacionFitness = calcularFitness(poblacion, utils )
     algoritmo = Algoritmo()
-    padres = metodoSeleccion(poblacionFitness,config, algoritmo)
-    nuevaPoblacion = metodoCruces(padres, config, algoritmo)
-    algoritmo.mutacion(nuevaPoblacion, rangoMutacion,contraseñaCorrecta)
-    print(nuevaPoblacion)
-  
-   
+    gen = 0
+    while utils.isContraseña(poblacion) == False:
+        poblacionFitness = calcularFitness(poblacion, utils )
+        padres = metodoSeleccion(poblacionFitness,config, algoritmo)
+        nuevaPoblacion = metodoCruces(padres, config, algoritmo)
+        algoritmo.mutacion(nuevaPoblacion, rangoMutacion,contraseñaCorrecta)
+        poblacion = nuevaPoblacion   
+        gen += 1
+    print(gen)
 main()

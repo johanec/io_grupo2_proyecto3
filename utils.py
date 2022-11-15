@@ -17,3 +17,12 @@ class Utils:
             if list(contraseña)[index] == cromosoma[index]:
                 puntuacion += 1
         return puntuacion/len(contraseña)
+
+    def isContraseña(self, poblacion):
+        for cromosoma in poblacion:
+            if self.calculate_fitness(cromosoma) == 1:
+                print("Encontrada")
+                print(cromosoma)
+                return True
+        return False
+            

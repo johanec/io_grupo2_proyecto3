@@ -128,7 +128,7 @@ class Algoritmo:
             padre2 = padres.pop(0)
             hijo1 = []
             hijo2 = []
-            punto1 = random.randint(0, len(padre1)/2-1)
+            punto1 = random.randint(0, len(padre1)//2-1)
             punto2 = random.randint(punto1, len(padre1)-1)
             #hijo1
             hijo1.extend(padre1[0:punto1])
@@ -147,7 +147,7 @@ class Algoritmo:
             padre2 = padres.pop(0)
             hijo1 = []
             hijo2 = []
-            punto1 = random.randint(0, len(padre1)/2-1)
+            punto1 = random.randint(0, len(padre1)//2-1)
             punto2 = random.randint(punto1, len(padre1)-1)
             #hijo1
             hijo1.extend(padre1[0:punto1])
@@ -169,10 +169,10 @@ class Algoritmo:
 
     def mutacion(self, poblacion,rangoMutacion,contraseña):
         for i in range(len(poblacion)):
-           if random.random() > rangoMutacion:
+           if random.randint(0,100) > float(rangoMutacion)*100:
              continue
            else:
-             posicionMutada = int(random.random() * len(contraseña))
+             posicionMutada = random.randint(0,len(contraseña)-1)
              mutacion = random.choice(string.ascii_letters + string.digits)
              poblacion[i][posicionMutada] = mutacion
         return poblacion
