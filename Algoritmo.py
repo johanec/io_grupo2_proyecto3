@@ -166,7 +166,14 @@ class Algoritmo:
         print("uniforme")
         return[]
 
-    def mutacion(self, poblacion, rangoMutacion):
-        return []    
+    def mutacion(poblacion,rangoMutacion,contraseña):
+        for i in range(len(poblacion)):
+           if random.random() > rangoMutacion:
+             continue
+           else:
+             posicionMutada = int(random.random() * len(contraseña))
+             mutacion = random.choice(string.ascii_letters + string.digits)
+             poblacion[i][posicionMutada] = mutacion
+        return poblacion
     
   

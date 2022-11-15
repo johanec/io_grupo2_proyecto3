@@ -69,6 +69,7 @@ def main():
     algoritmo = Algoritmo()
     padres = metodoSeleccion(poblacionFitness,config, algoritmo)
     nuevaPoblacion = metodoCruces(padres, config, algoritmo)
+    #nuevaPoblacion.extend(padres)
     print(nuevaPoblacion)
    
 main()
