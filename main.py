@@ -5,6 +5,7 @@ from algoritmo import *
 import math
 from typing import List, Tuple, Iterator
 import random
+
 import sys
 
 alfabeto = string.ascii_letters + string.digits          # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
@@ -24,13 +25,13 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
         poblacion.append(cromosomas)
     return poblacion
 
-def metodoSeleccion(poblacionFitness, metodo, algoritmo):
+def metodoSeleccion(poblacionFitness, metodo, algoritmo, numPadres):
         if metodo == "ruleta" :
-            algoritmo.metodoRuleta(poblacionFitness)  
+            algoritmo.metodoRuleta(poblacionFitness, numPadres)  
         elif metodo == "elite": 
-            algoritmo.metodoElite(poblacionFitness)
+            algoritmo.metodoElite(poblacionFitness,numPadres)
         elif metodo == "ranking":
-            algoritmo.metodoRanking(poblacionFitness)
+            algoritmo.metodoRanking(poblacionFitness,numPadres)
         else:
              raise Exception ("El método no se encuentra")
 def calcularFitness(poblacion, utils):
@@ -45,12 +46,12 @@ def main():
     utils = Utils(config)
     tamañoPoblacion = config["ag"]["population_size"]               #10
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
+    numeroPadres = config["ag"]["num_parents"]                   # 5
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
     poblacionFitness = calcularFitness(poblacion, utils )
     metodo =  config["ag"]["selection_method"]
-    algoritmo = Algoritmo(poblacion)
-    metodoSeleccion(poblacionFitness, metodo, algoritmo)
+    algoritmo = Algoritmo()
+    metodoSeleccion(poblacionFitness, metodo, algoritmo, numeroPadres)
     
    
 main()
-
