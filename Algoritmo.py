@@ -7,8 +7,7 @@ class Algoritmo:
     """ Clase encargada de contener el algoritmo genetico 
     """
     
-    def __init__(self, config, poblacion):
-        self.config = config
+    def __init__(self, poblacion):
         self.poblacion = poblacion
         self.contraseña = []
         
@@ -70,10 +69,22 @@ class Algoritmo:
             children_set[i][mutated_position] = mutation
         return children_set
 
+    
     def metodoRuleta(self, fitness):
+<<<<<<< HEAD
         return []    
+=======
+        print("fitness")
+        print(fitness)
+        return []
+    
+    def metodoElite(self, elite):
+        print("fitness Elite")
+        return []
+>>>>>>> 4dc06bf40534e6aa8094098eb0f3caf5d5a813e3
     
     def metodoRanking(self, fitness):
+        print("fitness Ranking")
         return []
     
     def metodoElite(self, poblacion):
@@ -96,6 +107,7 @@ class Algoritmo:
         return 
     
 
+<<<<<<< HEAD
     def metodoSeleccion(self,fitness):
         metodo = self.config["ag"]["selection_method"]
         if metodo == "ruleta" :
@@ -111,3 +123,7 @@ class Algoritmo:
     
 
 
+=======
+   
+  
+>>>>>>> 4dc06bf40534e6aa8094098eb0f3caf5d5a813e3

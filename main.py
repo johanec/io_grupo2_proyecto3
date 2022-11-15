@@ -1,6 +1,7 @@
 import string
 import tomllib
 from utils import *
+from Algoritmo import *
 import math
 from typing import List, Tuple, Iterator
 import random
@@ -23,16 +24,33 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
         poblacion.append(cromosomas)
     return poblacion
 
+def metodoSeleccion(poblacionFitness, metodo, algoritmo):
+        if metodo == "ruleta" :
+            algoritmo.metodoRuleta(poblacionFitness)  
+        elif metodo == "elite": 
+            algoritmo.metodoElite(poblacionFitness)
+        elif metodo == "ranking":
+            algoritmo.metodoRanking(poblacionFitness)
+        else:
+             raise Exception ("El método no se encuentra")
+def calcularFitness(poblacion, utils):
+    resultado = []
+    for cromosoma in poblacion:
+        resultado.append([cromosoma, utils.calculate_fitness(cromosoma)]) 
+    return  resultado 
+        
 
 def main():
     config = leerArchivo("config.toml")
+    utils = Utils(config)
     tamañoPoblacion = config["ag"]["population_size"]               #10
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
-    utils = Utils(config)
-    for cromosoma in poblacion:
-        print(cromosoma)
-        print (utils.calculate_fitness(cromosoma))
+    poblacionFitness = calcularFitness(poblacion, utils )
+    metodo =  config["ag"]["selection_method"]
+    algoritmo = Algoritmo(poblacion)
+    metodoSeleccion(poblacionFitness, metodo, algoritmo)
+    
    
 main()
 
