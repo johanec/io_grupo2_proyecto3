@@ -2,10 +2,10 @@
 from typing import List
 
 
-class Utils():
+class Utils:
     """ Clase encargada de realizar el calculo del fitness
     """
-    def _init_(self, config):
+    def __init__(self, config):
         self.setConfig(config)
 
     def getConfig(self):
@@ -19,8 +19,9 @@ class Utils():
         """
         puntuacion = 0
         config = self.getConfig()
-        contraseñaCorrecta = config["passcode"]["correct_passcode"]  
-        for index in range(len(contraseñaCorrecta)):
-            if contraseñaCorrecta[index] == cromosoma[index]:
+        stringPass= config["passcode"]["correct_passcode"]  
+        cromosomaModelo = list(stringPass)
+        for index in range(len(cromosomaModelo)):
+            if cromosomaModelo[index] == cromosoma[index]:
                 puntuacion += 1
-        return puntuacion/8
+        return puntuacion/len(cromosomaModelo)
