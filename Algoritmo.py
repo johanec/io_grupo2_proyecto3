@@ -1,22 +1,11 @@
-class Utils:
+class Algoritmo:
     """ Clase encargada de contener el algoritmo genetico 
     """
+    
     def __init__(self, config, poblacion):
-        self.setConfig(config)
-        self.setpoblacion(poblacion)
+        self.config = config
+        self.poblacion = poblacion
 
-    def getConfig(self):
-        return self.__config
-    
-    def setConfig(self,config ):
-        self.__config = config
-    
-    def getpoblacion(self):
-        return self.__poblacion
-    
-    def setpoblacion(self,poblacion ):
-        self.__poblacion = poblacion
-    
     def metodoRuleta(self, fitness):
         return []
     
@@ -27,8 +16,7 @@ class Utils:
         return []
 
     def metodoSeleccion(self,fitness ):
-        config = self.getConfig()
-        metodo = config["ag"]["selection_method"]
+        metodo = self.config["ag"]["selection_method"]
         if metodo == "ruleta" :
             self.metodoRuleta(fitness)  
         elif metodo == "elite": 

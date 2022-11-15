@@ -6,36 +6,33 @@ from typing import List, Tuple, Iterator
 import random
 import sys
 
-alfabeto = string.ascii_letters + string.digits             # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
+alfabeto = string.ascii_letters + string.digits          # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 
 def leerArchivo(nombre):
     with open (nombre , mode="rb") as fp:
             config = tomllib.load(fp)
-    
     return config
 
-def generarPoblacionInicial(lenPoblacion, lenContraseña):
+def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
     # Se crea una lista poblacion, la cual contiene listas cromosomas que son posibles soluciones
     poblacion = []
-    for i in range(lenPoblacion):
+    for i in range(tamañoPoblacion):
         cromosomas = []
-        for x in range(lenContraseña):
+        for x in range(largoContraseña):
             cromosomas.append(random.choice(alfabeto))
         poblacion.append(cromosomas)
-    
     return poblacion
 
 
 def main():
-    poblacion = generarPoblacionInicial(10,10)
     config = leerArchivo("config.toml")
-    fitness = Utils(config)
-    for i in poblacion:
-        print(i)
-        print (fitness.calculate_fitness(i))
+    tamañoPoblacion = config["ag"]["population_size"]               #10
+    contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
+    poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
+    utils = Utils(config)
+    for cromosoma in poblacion:
+        print(cromosoma)
+        print (utils.calculate_fitness(cromosoma))
    
-
-
-    
-
 main()
+
