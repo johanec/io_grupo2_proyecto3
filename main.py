@@ -26,14 +26,15 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
     return poblacion
 
 def metodoSeleccion(poblacionFitness, metodo, algoritmo, numPadres):
-        if metodo == "ruleta" :
-            algoritmo.metodoRuleta(poblacionFitness, numPadres)  
-        elif metodo == "elite": 
-            algoritmo.metodoElite(poblacionFitness,numPadres)
-        elif metodo == "ranking":
-            algoritmo.metodoRanking(poblacionFitness,numPadres)
-        else:
-             raise Exception ("El método no se encuentra")
+    if metodo == "ruleta" :
+        padres = algoritmo.metodoRuleta(poblacionFitness, numPadres)  
+    elif metodo == "elite": 
+        padres = algoritmo.metodoElite(poblacionFitness,numPadres)
+    elif metodo == "ranking":
+        padres = algoritmo.metodoRanking(poblacionFitness,numPadres)
+    else:
+        raise Exception ("El método no se encuentra")
+    return padres 
 def calcularFitness(poblacion, utils):
     resultado = []
     for cromosoma in poblacion:
@@ -51,7 +52,7 @@ def main():
     poblacionFitness = calcularFitness(poblacion, utils )
     metodo =  config["ag"]["selection_method"]
     algoritmo = Algoritmo()
-    metodoSeleccion(poblacionFitness, metodo, algoritmo, numeroPadres)
+    print(metodoSeleccion(poblacionFitness, metodo, algoritmo, numeroPadres))
     
    
 main()

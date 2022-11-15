@@ -85,8 +85,6 @@ class Algoritmo:
                 registros[0] = registros[0]  + sumatoria
                 sumatoria = registros[0]
                 ruleta.append(registros)
-            print(ruleta)
-            print(" ")
             for i in range(numPadres):
                 aleatorio = random.randint(0, 100)
                 isEncontrado = False
