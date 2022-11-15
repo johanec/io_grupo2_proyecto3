@@ -99,8 +99,17 @@ class Algoritmo:
                     seleccion.append(aleatorio[1])
         return seleccion
     
-    def metodoRanking(self, fitness ):
-        return []
+    def metodoRanking(self, poblacionFitness, numPadres ):
+        tabla = []
+        resultado = []
+        for cromosomaFitness in poblacionFitness:
+            tabla.append([cromosomaFitness[1], cromosomaFitness[0]])
+        tabla.sort()
+        print (tabla)
+        for i in range (numPadres):  
+            elemento = tabla.pop(-1)
+            resultado.append(elemento[1])
+        return resultado
     
     def metodoElite(self, poblacion,  contraseñaCorrecta):
         for caracter in contraseñaCorrecta:
