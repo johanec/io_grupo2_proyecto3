@@ -63,13 +63,14 @@ def main():
     utils = Utils(config)
     tamañoPoblacion = config["ag"]["population_size"]               #10
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
-                    # 5
+    rangoMutacion = config["ag"]["mutation_rate"]               # 0.5            
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
     poblacionFitness = calcularFitness(poblacion, utils )
     algoritmo = Algoritmo()
     padres = metodoSeleccion(poblacionFitness,config, algoritmo)
     nuevaPoblacion = metodoCruces(padres, config, algoritmo)
-    #nuevaPoblacion.extend(padres)
+    algoritmo.mutacion(nuevaPoblacion, rangoMutacion,contraseñaCorrecta)
     print(nuevaPoblacion)
+  
    
 main()

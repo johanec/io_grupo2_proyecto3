@@ -1,4 +1,5 @@
 from utils import*
+import string
 import random
 import time
 class Algoritmo:
@@ -117,7 +118,7 @@ class Algoritmo:
             viejos.append(padre2)
             hijos.append(hijo1)
             hijos.append(hijo2)
-        return hijos
+        return hijos + viejos
 
     def metodoTwo_point(self, padres,rangoCruce):
         hijos = []
@@ -161,12 +162,12 @@ class Algoritmo:
             hijos.append(hijo1)
             hijos.append(hijo2)
 
-        return hijos
+        return hijos + viejos
     def metodoUniform(self, padres,rangoCruce):
         print("uniforme")
         return[]
 
-    def mutacion(poblacion,rangoMutacion,contraseña):
+    def mutacion(self, poblacion,rangoMutacion,contraseña):
         for i in range(len(poblacion)):
            if random.random() > rangoMutacion:
              continue
