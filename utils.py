@@ -15,10 +15,12 @@ class Utils():
         self.__config = config
     
     def calculate_fitness(self, cromosoma):
-        matches = 0
+        """ Metodo encargado de realizar el calculo del fitness
+        """
+        puntuacion = 0
         config = self.getConfig()
         contraseñaCorrecta = config["passcode"]["correct_passcode"]  
         for index in range(len(contraseñaCorrecta)):
             if contraseñaCorrecta[index] == cromosoma[index]:
-                matches += 1
-        return matches/8
+                puntuacion += 1
+        return puntuacion/8
