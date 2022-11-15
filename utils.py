@@ -7,6 +7,7 @@ class Utils:
     def __init__(self, config):
         self.config = config
    
+   
     def calculate_fitness(self, cromosoma):
         """ Metodo encargado de realizar el calculo del fitness
         """

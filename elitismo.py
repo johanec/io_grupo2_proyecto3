@@ -14,8 +14,9 @@ population_size = 10
 num_parents = 5
 elite_size = 2
 contraseñaCorrecta = config["passcode"]["correct_passcode"]
-
+parents = []
 secret_passcode = []
+
 for caracter in contraseñaCorrecta:
     secret_passcode.append(int(caracter))
     
@@ -93,13 +94,13 @@ success = []
 generations = 0
 t0 = time.time()
 while True:
-
     fitness_scores = fitness(population)
     success.append(max([i[1] for i in fitness_scores]))
     if max([i[1] for i in fitness_scores]) == passcode_length:
         print("Cracked in {} generations, and {} seconds! \nSecret passcode = {} \nDiscovered passcode = {}".format(generations,time.time() - t0,secret_passcode,[i[0] for i in fitness_scores if i[1] == passcode_length][0]))
         break
     parents = select_parents(fitness_scores)
+    print(parents)
     children = create_children(parents)
     population = mutation(children)
     generations += 1
