@@ -49,13 +49,14 @@ def metodoCruces(padres, config, algoritmo):
     metodo = config["ag"]["crossover_method"]
     rangoCruce = config["ag"]["crossover_rate"]             # 90
     if metodo == "one-point" :
-        padres = algoritmo.metodoOne_point(padres,rangoCruce)  
+        nuevaPoblacion = algoritmo.metodoOne_point(padres,rangoCruce)  
     elif metodo == "two-point": 
-        padres = algoritmo.metodoTwo_point(padres,rangoCruce)
+        nuevaPoblacion= algoritmo.metodoTwo_point(padres,rangoCruce)
     elif metodo == "uniform":
-        padres = algoritmo.metodoUniform(padres,rangoCruce)
+        nuevaPoblacion = algoritmo.metodoUniform(padres,rangoCruce)
     else:
         raise Exception ("El método no se encuentra")
+    return nuevaPoblacion
 
 def main():
     config = leerArchivo("config.toml")
@@ -67,7 +68,7 @@ def main():
     poblacionFitness = calcularFitness(poblacion, utils )
     algoritmo = Algoritmo()
     padres = metodoSeleccion(poblacionFitness,config, algoritmo)
-    algoritmo = metodoCruces(padres, config, algoritmo)
+    nuevaPoblacion = metodoCruces(padres, config, algoritmo)
     print(padres)
    
 main()
