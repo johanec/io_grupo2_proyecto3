@@ -3,7 +3,7 @@ import random
 import time
 
 
-class Algoritmo:
+class algoritmo:
     """ Clase encargada de contener el algoritmo genetico 
     """
     
