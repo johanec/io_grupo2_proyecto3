@@ -1,10 +1,11 @@
 import string
 import tomllib
 from utils import *
-from algoritmo import *
+from Algoritmo import *
 import math
 from typing import List, Tuple, Iterator
 import random
+
 import sys
 
 alfabeto = string.ascii_letters + string.digits          # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
@@ -23,17 +24,21 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
             cromosomas.append(random.choice(alfabeto))
         poblacion.append(cromosomas)
     return poblacion
-    
-def metodoSeleccion(poblacionFitness, metodo, algoritmo):
-        if metodo == "ruleta" :
-            algoritmo.metodoRuleta(poblacionFitness)  
-        elif metodo == "elite": 
-            algoritmo.metodoElite(poblacionFitness)
-        elif metodo == "ranking":
-            algoritmo.metodoRanking(poblacionFitness)
-        else:
-             raise Exception ("El método no se encuentra")
-         
+
+def metodoSeleccion(poblacionFitness, config, algoritmo):
+    metodo =  config["ag"]["selection_method"]
+    numPadres = config["ag"]["num_parents"]  
+    contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
+    if metodo == "ruleta" :
+        padres = algoritmo.metodoRuleta(poblacionFitness, numPadres)  
+    elif metodo == "elite": 
+        padres = algoritmo.metodoElite(poblacionFitness,contraseñaCorrecta ,numPadres)
+    elif metodo == "ranking":
+        padres = algoritmo.metodoRanking(poblacionFitness,numPadres)
+    else:
+        raise Exception ("El método no se encuentra")
+    return padres 
+
 def calcularFitness(poblacion, utils):
     resultado = []
     for cromosoma in poblacion:
@@ -46,12 +51,11 @@ def main():
     utils = Utils(config)
     tamañoPoblacion = config["ag"]["population_size"]               #10
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
+                    # 5
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
     poblacionFitness = calcularFitness(poblacion, utils )
-    metodo =  config["ag"]["selection_method"]
-    algoritmo = Algoritmo(config, poblacion)
-    algoritmo.metodoSeleccion()
+    algoritmo = Algoritmo()
+    print(metodoSeleccion(poblacionFitness,config, algoritmo))
     
    
 main()
-
