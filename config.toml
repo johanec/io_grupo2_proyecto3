@@ -7,6 +7,6 @@ mutation_rate = 0.5
 crossover_rate = 90
 crossover_method = 'uniform'
 [passcode]
-correct_passcode = '234AHLp91n'
-
+#correct_passcode = '234AHLp91n'
+correct_passcode = '2622525252'
 
