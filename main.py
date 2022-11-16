@@ -47,8 +47,8 @@ def calcularFitness(poblacion, utils):
 
 # Función que valida el tipo de crossover a utilizar
 def metodoCruces(poblacion, config, algoritmo):
-    metodo = config["ag"]["crossover_method"]
-    rangoCruce = config["ag"]["crossover_rate"]            
+    metodo = config["ag"]["crossover_method"]   # "uniform", "one-point", "two-point"
+    rangoCruce = config["ag"]["crossover_rate"] # 90      
     total = len(poblacion)
     padres = []
     for i in range( total): 
@@ -70,8 +70,8 @@ def metodoCruces(poblacion, config, algoritmo):
 def main():
     config = leerArchivo("config.toml")
     utils = Utils(config)
-    tamañoPoblacion = config["ag"]["population_size"]  #10
-    metodo = config["ag"]["crossover_method"]           # "uniform", "", ""
+    tamañoPoblacion = config["ag"]["population_size"]  # 10
+    metodo = config["ag"]["crossover_method"]           # "uniform", "one-point", "two-point"
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
     rangoMutacion = config["ag"]["mutation_rate"]               # 0.5   
     tamañoElite = config["ag"]["elite_size"]           # 2
@@ -89,5 +89,7 @@ def main():
 
         poblacion = nuevaPoblacion  
         gen += 1
-    print(gen)
+        
+    print("La contraseña fue encontrada en la generación: " + str(gen))
+    
 main()
