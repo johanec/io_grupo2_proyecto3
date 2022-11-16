@@ -26,7 +26,7 @@ class Algoritmo:
         tabla = []
         isRandom = False
         seleccion = []
-        for cromosoma in cromosomasResultados:
+        for cromosoma in cromosomasResultados: # recorre la lista que contiene los cromosomas y sus fitness / agrega en suma el fitnes
             suma += cromosoma[1]
 
         for cromosoma in cromosomasResultados:
@@ -96,11 +96,11 @@ class Algoritmo:
         hijos = []
         viejos = []
         while len(padres) >= 2:
-            padre1 = padres.pop(0)
+            padre1 = padres.pop(0) # selecciona los primeros 2 de la lista con pop y los elimina
             padre2 = padres.pop(0)
             hijo1 = []
             hijo2 = []
-            punto = random.randint(0, len(padre1)-1)
+            punto = random.randint(0, len(padre1)-1) # se utiliza para seleccionar un punto random del cromosoma
             hijo1.extend(padre1[0:punto])
             hijo1.extend(padre2[punto:])
             hijo2.extend(padre2[punto:])
