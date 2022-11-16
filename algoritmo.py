@@ -1,41 +1,43 @@
 from utils import*
 import string
 import random
-import time
+
+# Clase encargada de contener el algoritmo genetico 
 class Algoritmo:
-    """ Clase encargada de contener el algoritmo genetico 
-    """
-    
+        
     def __init__(self):
         pass
   
+    # Método encargado de mutar caracteres de los cromosomas 
     def mutacion(self, poblacion,rangoMutacion,contraseña):
         for i in range(len(poblacion)):
            if random.randint(0,100) > float(rangoMutacion)*100:
              continue
            else:
-             posicionMutada = random.randint(0,len(contraseña)-1)
-             mutacion = random.choice(string.ascii_letters + string.digits)
-             poblacion[i][posicionMutada] = mutacion
+             posicionMutada = random.randint(0,len(contraseña)-1) # selecciona posicion de un caracter del cromosoma a mutar
+             mutacion = random.choice(string.ascii_letters + string.digits) # digito o numero random para mutar
+             poblacion[i][posicionMutada] = mutacion # se realiza la mutacion
         return poblacion
 
-    def metodoRuleta(self,poblacionFitness, numPadres):
+
+    # Método encargado de realizar el metodo de seleccion ruleta
+    def metodoRuleta(self,cromosomasResultados, numPadres):
         suma = 0
         tabla = []
         isRandom = False
         seleccion = []
-        for cromosomaFitness in poblacionFitness:
-            suma += cromosomaFitness[1]
+        for cromosoma in cromosomasResultados:
+            suma += cromosoma[1]
 
-        for cromosomaFitness in poblacionFitness:
+        for cromosoma in cromosomasResultados:
             if suma !=0:
-                tabla.append([(cromosomaFitness[1]/suma)*100, cromosomaFitness[0]])
+                tabla.append([(cromosoma[1]/suma)*100, cromosoma[0]])
             else:
                 isRandom = True
         
         if isRandom:
             for i in range(numPadres):
-                aleatorio = poblacionFitness.pop(random.randint(0, len(poblacionFitness)-1))
+                aleatorio = cromosomasResultados.pop(random.randint(0, len(cromosomasResultados)-1))
                 seleccion.append(aleatorio[0])
         else: 
             tabla.sort()
@@ -59,6 +61,7 @@ class Algoritmo:
                     seleccion.append(aleatorio[1])
         return seleccion
     
+    # Método encargado de realizar el metodo de seleccion ranking
     def metodoRanking(self, poblacionFitness, numPadres ):
         tabla = []
         resultado = []
@@ -70,12 +73,7 @@ class Algoritmo:
             resultado.append(elemento[1])
         return resultado
     
-    def select_parents(self, fitness_scores, numeroParientes):
-        parents_list = []
-        for cromosomas in sorted(fitness_scores, key=lambda x: x[1], reverse = True)[:numeroParientes]: #primeros 4 ":numeroParientes"
-          parents_list.append(cromosomas[0])
-        return(parents_list) #retorna lista con 5 mejores cromosomas
-    
+    # Método encargado de realizar el metodo de seleccion elitismo
     def metodoElite(self, poblacion, numPadres, tamañoElite):
         tabla = []
         resultado = []
@@ -93,6 +91,7 @@ class Algoritmo:
         padresN = self.metodoRuleta(padres, numPadres-tamañoElite)
         return resultado + padresN
     
+    # Método encargado de realizar el metodo de cruzamiento one-point
     def metodoOne_point(self, padres):
         hijos = []
         viejos = []
@@ -112,7 +111,9 @@ class Algoritmo:
             hijos.append(hijo2)
         
         return hijos + viejos + padres
-
+    
+    
+    # Método encargado de realizar el metodo de cruzamiento two-point
     def metodoTwo_point(self, padres):
         hijos = []
         viejos = []
@@ -138,6 +139,7 @@ class Algoritmo:
 
         return hijos + viejos + padres
 
+    # Método encargado de realizar el metodo de cruzamiento uniform
     def metodoUniform(self, padres):
         hijos = []
         viejos = []
@@ -161,14 +163,6 @@ class Algoritmo:
         
         return hijos + viejos + padres
 
-    def mutacion(self, poblacion,rangoMutacion,contraseña):
-        for i in range(len(poblacion)):
-           if random.randint(0,100) > float(rangoMutacion)*100:
-             continue
-           else:
-             posicionMutada = random.randint(0,len(contraseña)-1)
-             mutacion = random.choice(string.ascii_letters + string.digits)
-             poblacion[i][posicionMutada] = mutacion
-        return poblacion
+    
     
   
