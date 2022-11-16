@@ -45,15 +45,21 @@ def calcularFitness(poblacion, utils):
         resultado.append([cromosoma, utils.calculate_fitness(cromosoma)]) 
     return  resultado 
 
-def metodoCruces(padres, config, algoritmo):
+def metodoCruces(poblacion, config, algoritmo):
     metodo = config["ag"]["crossover_method"]
     rangoCruce = config["ag"]["crossover_rate"]             # 90
+    total = len(poblacion)
+    padres = []
+    for i in range( total): 
+        if i/total < rangoCruce:
+            padres.append(poblacion.pop(random.randint(0, len(poblacion)-1)))
+
     if metodo == "one-point" :
-        nuevaPoblacion = algoritmo.metodoOne_point(padres,rangoCruce)  
+        nuevaPoblacion = algoritmo.metodoOne_point(padres)  
     elif metodo == "two-point": 
-        nuevaPoblacion= algoritmo.metodoTwo_point(padres,rangoCruce)
+        nuevaPoblacion= algoritmo.metodoTwo_point(padres)
     elif metodo == "uniform":
-        nuevaPoblacion = algoritmo.metodoUniform(padres,rangoCruce)
+        nuevaPoblacion = algoritmo.metodoUniform(padres)
     else:
         raise Exception ("El método no se encuentra")
     return nuevaPoblacion

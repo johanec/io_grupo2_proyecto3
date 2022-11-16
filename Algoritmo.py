@@ -86,7 +86,7 @@ class Algoritmo:
         parents = self.select_parents(fitness_scores, numPadres)
         return parents
     
-    def metodoOne_point(self, padres,rangoCruce):
+    def metodoOne_point(self, padres):
         hijos = []
         viejos = []
         while len(padres) >= 2:
@@ -120,7 +120,7 @@ class Algoritmo:
             hijos.append(hijo2)
         return hijos + viejos
 
-    def metodoTwo_point(self, padres,rangoCruce):
+    def metodoTwo_point(self, padres):
         hijos = []
         viejos = []
         while len(padres) >= 2:
@@ -163,7 +163,7 @@ class Algoritmo:
             hijos.append(hijo2)
 
         return hijos + viejos
-    def metodoUniform(self, padres,rangoCruce):
+    def metodoUniform(self, padres):
         print("uniforme")
         return[]
 
