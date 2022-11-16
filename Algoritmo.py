@@ -79,20 +79,21 @@ class Algoritmo:
           parents_list.append(cromosomas[0])
         return(parents_list) #retorna lista con 5 mejores cromosomas
     
-    def metodoElite(self, poblacion, numPadres):
+    def metodoElite(self, poblacion, numPadres, tamañoElite):
         tabla = []
         resultado = []
         padres = []
         for cromosomaFitness in poblacion:
             tabla.append([cromosomaFitness[1], cromosomaFitness[0]])
         tabla.sort()
-        seleccion1 = tabla.pop(-1)
-        seleccion2 = tabla.pop(-1)
-        resultado.append(seleccion1[1])
-        resultado.append(seleccion2[1])
+        for i in range(tamañoElite):
+            seleccion1 = tabla.pop(-1)
+            seleccion2 = tabla.pop(-1)
+            resultado.append(seleccion1[1])
+            resultado.append(seleccion2[1])
         for cromosoma in tabla:
             padres.append( [cromosoma[1], cromosoma[0]])
-        padresN = self.metodoRuleta(padres, numPadres-2)
+        padresN = self.metodoRuleta(padres, numPadres-tamañoElite)
         return resultado + padresN
     
     def metodoOne_point(self, padres):

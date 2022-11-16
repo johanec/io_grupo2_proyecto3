@@ -27,11 +27,12 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
 
 def metodoSeleccion(poblacionFitness, config, algoritmo):
     metodo =  config["ag"]["selection_method"]
-    numPadres = config["ag"]["num_parents"]  
+    numPadres = config["ag"]["num_parents"] 
+    tamañoElite = config["ag"]["elite_size"]  
     if metodo == "ruleta" :
         padres = algoritmo.metodoRuleta(poblacionFitness, numPadres)  
     elif metodo == "elite": 
-        padres = algoritmo.metodoElite(poblacionFitness ,numPadres)
+        padres = algoritmo.metodoElite(poblacionFitness ,numPadres, tamañoElite)
     elif metodo == "ranking":
         padres = algoritmo.metodoRanking(poblacionFitness,numPadres)
     else:
@@ -70,7 +71,8 @@ def main():
     tamañoPoblacion = config["ag"]["population_size"]  
     metodo = config["ag"]["crossover_method"]           
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
-    rangoMutacion = config["ag"]["mutation_rate"]               # 0.5            
+    rangoMutacion = config["ag"]["mutation_rate"]               # 0.5   
+    tamañoElite = config["ag"]["elite_size"]           
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
     algoritmo = Algoritmo()
     gen = 0
@@ -80,8 +82,9 @@ def main():
         nuevaPoblacion = metodoCruces(padres, config, algoritmo)
         algoritmo.mutacion(nuevaPoblacion, rangoMutacion,contraseñaCorrecta)
         if metodo == "elite":
-            nuevaPoblacion.append(padres[0])
-            nuevaPoblacion.append(padres[1])
+            for i in range (tamañoElite):
+                nuevaPoblacion.append(padres[i])
+                
         poblacion = nuevaPoblacion  
         gen += 1
     print(gen)

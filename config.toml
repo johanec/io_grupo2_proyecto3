@@ -2,7 +2,7 @@
 population_size = 100
 num_parents = 50
 selection_method = 'elite'
-elite_size = 2
+elite_size = 3
 mutation_rate = 0.5
 crossover_rate = 90
 crossover_method = 'uniform'
