@@ -7,7 +7,7 @@ class Algoritmo:
     """
     
     def __init__(self):
-        self.contraseña = []
+        self.seleccionPadres = []
         
     
     def mutation(self, children_set):
@@ -79,12 +79,21 @@ class Algoritmo:
           parents_list.append(cromosomas[0])
         return(parents_list) #retorna lista con 5 mejores cromosomas
     
-    def metodoElite(self, poblacion, contraseñaCorrecta, numPadres):
-        for caracter in contraseñaCorrecta:
-            self.contraseña.append(caracter)
-        fitness_scores = poblacion
-        parents = self.select_parents(fitness_scores, numPadres)
-        return parents
+    def metodoElite(self, poblacion, numPadres):
+        tabla = []
+        resultado = []
+        padres = []
+        for cromosomaFitness in poblacion:
+            tabla.append([cromosomaFitness[1], cromosomaFitness[0]])
+        tabla.sort()
+        seleccion1 = tabla.pop(-1)
+        seleccion2 = tabla.pop(-1)
+        resultado.append(seleccion1[1])
+        resultado.append(seleccion2[1])
+        for cromosoma in tabla:
+            padres.append( [cromosoma[1], cromosoma[0]])
+        padresN = self.metodoRuleta(padres, numPadres-2)
+        return resultado + padresN
     
     def metodoOne_point(self, padres):
         hijos = []
@@ -104,21 +113,7 @@ class Algoritmo:
             hijos.append(hijo1)
             hijos.append(hijo2)
         
-        if len(padres) == 1:
-            padre1 = viejos.pop(random.randint(0, len(viejos)-1))
-            padre2 = padres.pop(0)
-            hijo1 = []
-            hijo2 = []
-            punto = random.randint(0, len(padre1)-1)
-            hijo1.extend(padre1[0:punto])
-            hijo1.extend(padre2[punto:])
-            hijo2.extend(padre2[punto:])
-            hijo2.extend(padre1[0:punto])
-            viejos.append(padre1)
-            viejos.append(padre2)
-            hijos.append(hijo1)
-            hijos.append(hijo2)
-        return hijos + viejos
+        return hijos + viejos + padres
 
     def metodoTwo_point(self, padres):
         hijos = []
@@ -142,30 +137,31 @@ class Algoritmo:
             viejos.append(padre2)
             hijos.append(hijo1)
             hijos.append(hijo2)
-        if len(padres) == 1:
-            padre1 = viejos.pop(random.randint(0, len(viejos)-1))
-            padre2 = padres.pop(0)
+
+        return hijos + viejos + padres
+
+    def metodoUniform(self, padres):
+        hijos = []
+        viejos = []
+        while len(padres) > 2: 
             hijo1 = []
             hijo2 = []
-            punto1 = random.randint(0, len(padre1)//2-1)
-            punto2 = random.randint(punto1, len(padre1)-1)
-            #hijo1
-            hijo1.extend(padre1[0:punto1])
-            hijo1.extend(padre2[punto1:punto2])
-            hijo1.extend(padre1[punto2:])
-            #hijo2
-            hijo2.extend(padre2[0:punto1])
-            hijo2.extend(padre1[punto1:punto2])
-            hijo2.extend(padre2[punto2:])
-            viejos.append(padre1)
-            viejos.append(padre2)
+            padre1 = padres.pop(0)
+            padre2 = padres.pop(0)
+            for index in range(len(padre1)):
+                cambiar = random.randint(0, 100)
+                if cambiar < 50:
+                    hijo1.append(padre1[index])
+                    hijo2.append(padre2[index])
+                else:
+                   hijo2.append(padre1[index])  
+                   hijo1.append(padre2[index])  
             hijos.append(hijo1)
             hijos.append(hijo2)
-
-        return hijos + viejos
-    def metodoUniform(self, padres):
-        print("uniforme")
-        return[]
+            viejos.append(padre1)
+            viejos.append(padre2)
+        
+        return hijos + viejos + padres
 
     def mutacion(self, poblacion,rangoMutacion,contraseña):
         for i in range(len(poblacion)):

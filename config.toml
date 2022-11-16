@@ -1,11 +1,11 @@
 [ag]
 population_size = 100
 num_parents = 50
-selection_method = 'ruleta'
+selection_method = 'elite'
 elite_size = 2
 mutation_rate = 0.5
 crossover_rate = 90
-crossover_method = 'two-point'
+crossover_method = 'uniform'
 [passcode]
 correct_passcode = '234AHLp91n'
 

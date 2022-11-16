@@ -28,11 +28,10 @@ def generarPoblacionInicial(tamañoPoblacion, largoContraseña):
 def metodoSeleccion(poblacionFitness, config, algoritmo):
     metodo =  config["ag"]["selection_method"]
     numPadres = config["ag"]["num_parents"]  
-    contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
     if metodo == "ruleta" :
         padres = algoritmo.metodoRuleta(poblacionFitness, numPadres)  
     elif metodo == "elite": 
-        padres = algoritmo.metodoElite(poblacionFitness,contraseñaCorrecta ,numPadres)
+        padres = algoritmo.metodoElite(poblacionFitness ,numPadres)
     elif metodo == "ranking":
         padres = algoritmo.metodoRanking(poblacionFitness,numPadres)
     else:
@@ -62,13 +61,14 @@ def metodoCruces(poblacion, config, algoritmo):
         nuevaPoblacion = algoritmo.metodoUniform(padres)
     else:
         raise Exception ("El método no se encuentra")
-    return nuevaPoblacion
+    return nuevaPoblacion + poblacion
 
 
 def main():
     config = leerArchivo("config.toml")
     utils = Utils(config)
-    tamañoPoblacion = config["ag"]["population_size"]               #10
+    tamañoPoblacion = config["ag"]["population_size"]  
+    metodo = config["ag"]["crossover_method"]           
     contraseñaCorrecta = config["passcode"]["correct_passcode"]     # 234AHLp91n
     rangoMutacion = config["ag"]["mutation_rate"]               # 0.5            
     poblacion = generarPoblacionInicial(tamañoPoblacion,len(contraseñaCorrecta))
@@ -79,7 +79,10 @@ def main():
         padres = metodoSeleccion(poblacionFitness,config, algoritmo)
         nuevaPoblacion = metodoCruces(padres, config, algoritmo)
         algoritmo.mutacion(nuevaPoblacion, rangoMutacion,contraseñaCorrecta)
-        poblacion = nuevaPoblacion   
+        if metodo == "elite":
+            nuevaPoblacion.append(padres[0])
+            nuevaPoblacion.append(padres[1])
+        poblacion = nuevaPoblacion  
         gen += 1
     print(gen)
 main()
