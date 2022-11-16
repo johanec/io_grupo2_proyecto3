@@ -5,3 +5,9 @@
  Integrantes: Johan Echeverria y Jose Ramirez
  
  
+Bibliotecas utilizadas:
+
+import string
+import random
+import tomllib
+from typing import List
