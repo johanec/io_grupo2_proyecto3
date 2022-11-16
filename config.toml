@@ -1,7 +1,7 @@
 [ag]
-population_size = 100
-num_parents = 50
-selection_method = 'elite'
+population_size = 10
+num_parents = 5
+selection_method = 'ruleta'
 elite_size = 3
 mutation_rate = 0.5
 crossover_rate = 90

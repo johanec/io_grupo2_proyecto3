@@ -2,12 +2,7 @@ import string
 import tomllib
 from utils import *
 from Algoritmo import *
-import math
-from typing import List, Tuple, Iterator
 import random
-
-import sys
-
 alfabeto = string.ascii_letters + string.digits          # abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789
 
 def leerArchivo(nombre):
@@ -84,7 +79,7 @@ def main():
         if metodo == "elite":
             for i in range (tamañoElite):
                 nuevaPoblacion.append(padres[i])
-                
+
         poblacion = nuevaPoblacion  
         gen += 1
     print(gen)
