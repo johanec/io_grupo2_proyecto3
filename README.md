@@ -5,7 +5,7 @@
  Integrantes: Johan Echeverria y Jose Ramirez
  
  
-Bibliotecas utilizadas:
+## Bibliotecas utilizadas:
 
 import string\
 import random\
