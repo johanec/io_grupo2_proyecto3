@@ -7,19 +7,17 @@ class Algoritmo:
     """
     
     def __init__(self):
-        self.seleccionPadres = []
-        
-    
-    def mutation(self, children_set):
-        contraseñaCorrecta = self.contraseña
-        for i in range(len(children_set)):
-            if random.random() > 0.1:
-                continue
-        else:
-            mutated_position = int(random.random() * len(contraseñaCorrecta))
-            mutation = int(round(random.uniform(0,9+1),0))
-            children_set[i][mutated_position] = mutation
-        return children_set
+        pass
+  
+    def mutacion(self, poblacion,rangoMutacion,contraseña):
+        for i in range(len(poblacion)):
+           if random.randint(0,100) > float(rangoMutacion)*100:
+             continue
+           else:
+             posicionMutada = random.randint(0,len(contraseña)-1)
+             mutacion = random.choice(string.ascii_letters + string.digits)
+             poblacion[i][posicionMutada] = mutacion
+        return poblacion
 
     def metodoRuleta(self,poblacionFitness, numPadres):
         suma = 0
@@ -29,7 +27,6 @@ class Algoritmo:
         for cromosomaFitness in poblacionFitness:
             suma += cromosomaFitness[1]
 
-        
         for cromosomaFitness in poblacionFitness:
             if suma !=0:
                 tabla.append([(cromosomaFitness[1]/suma)*100, cromosomaFitness[0]])
