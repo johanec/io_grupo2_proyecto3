@@ -1,16 +1,13 @@
 from typing import List
 
-
+# Clase encargada de realizar el calculo del fitness
 class Utils:
-    """ Clase encargada de realizar el calculo del fitness
-    """
+    
     def __init__(self, config):
         self.config = config
    
-   
-    def calculate_fitness(self, cromosoma):
-        """ Metodo encargado de realizar el calculo del fitness
-        """
+    # Metodo encargado de realizar el calculo del fitness
+    def calculate_fitness(self, cromosoma):        
         puntuacion = 0
         contraseña = self.config["passcode"]["correct_passcode"]  
         for index in range(len(contraseña)):
@@ -18,11 +15,11 @@ class Utils:
                 puntuacion += 1
         return puntuacion/len(contraseña)
 
+    # Metodo para verificar que se encontró la contraseña
     def isContraseña(self, poblacion):
         for cromosoma in poblacion:
             if self.calculate_fitness(cromosoma) == 1:
-                print("Encontrada")
-                print(cromosoma)
+                print("Se encontró la contraseña: " + str(cromosoma))
                 return True
         return False
             
